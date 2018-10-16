@@ -102,5 +102,29 @@ describe('YamsCombinationCalculator should', () => {
             YamsCombinationCalculator(roll, Combinations.FourOfAKind)
                 .should.equal(expected);
         });
+
+        it('return 25 when a "Full" is done', () => {
+            const roll = [ 1, 1, 1, 2, 2 ];
+            const expected = 25;
+
+            YamsCombinationCalculator(roll, Combinations.Full)
+                .should.equal(expected);
+        });
+
+        it('return 0 when "Full" is not complete', () => {
+            const roll = [ 1, 1, 5, 2, 2 ];
+            const expected = 0;
+
+            YamsCombinationCalculator(roll, Combinations.Full)
+                .should.equal(expected);
+        });
+
+        it('return sum of dices of "Luck"', () => {
+            const roll = [1, 2, 3, 4, 5];
+            const expected = 15;
+
+            YamsCombinationCalculator(roll, Combinations.Luck)
+                .should.equal(expected);
+        });
     });
 });

@@ -49,9 +49,33 @@ export class FourOfAKindCombination implements Combination {
     }
 }
 
+class FullCombination implements Combination {
+    getResultFor(roll: number[]): number {
+        const dicesOccurences = getDicesOccurences(roll);
+        const occurencesWithoutZeros = dicesOccurences.filter(d => d !== 0);
+        const orderedOccurences = occurencesWithoutZeros.sort((d1, d2) => d1 - d2);
+
+        const fullValidated = orderedOccurences.length === 2
+            && orderedOccurences[ 0 ] === 2
+            && orderedOccurences[ 1 ] === 3;
+
+        return fullValidated ? 25 : 0;
+    }
+}
+
+class LuckCombination implements Combination {
+    getResultFor(roll: number[]): number {
+        return roll.reduce(sum, 0);
+
+        function sum(acc: number, value: number) {
+            acc += value; return acc;
+        }
+    }
+}
+
 function getDicesOccurences(roll: number[]): number[] {
     const occurences = [ 0, 0, 0, 0, 0, 0 ];
-    roll.forEach(dice => occurences[dice - 1] += 1);
+    roll.forEach(dice => occurences[ dice - 1 ] += 1);
     return occurences;
 }
 
@@ -61,6 +85,8 @@ export class Combinations {
     static Threes: Combination = new ThreesCombination();
     static ThreeOfAKind: Combination = new ThreeOfAKindCombination();
     static FourOfAKind: Combination = new FourOfAKindCombination();
+    static Full: Combination = new FullCombination();
+    static Luck: Combination = new LuckCombination();
 }
 
 export function YamsCombinationCalculator(roll: number[], combination: Combination): number {
