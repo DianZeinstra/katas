@@ -40,7 +40,7 @@ export class ThreeOfAKindCombination implements Combination {
     }
 }
 
-class FourOfAKindCombination implements Combination {
+export class FourOfAKindCombination implements Combination {
     getResultFor(roll: number[]): number {
         const dicesOccurences = getDicesOccurences(roll);
         const kind = dicesOccurences.findIndex(dice => dice >= 4) + 1;
@@ -51,7 +51,7 @@ class FourOfAKindCombination implements Combination {
 
 function getDicesOccurences(roll: number[]): number[] {
     const occurences = [ 0, 0, 0, 0, 0, 0 ];
-    roll.forEach(dice => occurences[dice - 1]++);
+    roll.forEach(dice => occurences[dice - 1] += 1);
     return occurences;
 }
 
