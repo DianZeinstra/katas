@@ -26,7 +26,6 @@ describe('SortingBalls Rack should', () => {
         rack.balls.should.eql([ 42 ]);
     });
 
-
     it('contain both element ordered when a 2nd element is added', () => {
         rack.balls.should.exist;
 
