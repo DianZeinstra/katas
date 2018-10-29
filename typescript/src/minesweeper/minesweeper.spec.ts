@@ -11,23 +11,40 @@ describe('Minesweeper should', () => {
     });
 
     it('return empty string when given 0 rows and columns', () => {
-        const entry = [
+        const input = [
             '0 0'
         ];
 
-        minesweeper(entry).should.equal('');
+        minesweeper(input).should.equal('');
     });
 
-    it('resolve successfully an 1x1 array with a mine', () => {
-        const entry = [
-            '1 1',
-            '*',
-            '0 0'
+    it('return an array of zeros when no mines given', () => {
+        const input = [
+            '2 2',
+            '..',
+            '..'
         ];
 
-        const expected = 'Field #1:'
-                       + '*';
+        const expected = [
+            '00',
+            '00'
+        ].toString();
 
-        minesweeper(entry).should.equal(expected);
+        minesweeper(input).should.equal(expected);
+    });
+
+    it('return an array with stars when only mines given', () => {
+        const input = [
+            '2 2',
+            '**',
+            '**'
+        ];
+
+        const expected = [
+            '**',
+            '**'
+        ].toString();
+
+        minesweeper(input).should.equal(expected);
     });
 });
