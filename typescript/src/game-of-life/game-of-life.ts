@@ -41,24 +41,26 @@ export class GameOfLife {
         const isAlive = game[line][column] === States.ALIVE;
         const aliveNeighbors = this.getAliveNeighborsOf(game, line, column);
 
-        if ((isAlive && (aliveNeighbors === 2 || aliveNeighbors === 3))
-        || (!isAlive && aliveNeighbors === 3))
-            return States.ALIVE;
+        const aliveAndTwoOrThreeNeighbors = () => isAlive && (aliveNeighbors === 2 || aliveNeighbors === 3);
+        const deadAndExactlyThreeNeighbors = () => !isAlive && aliveNeighbors === 3;
 
-        return States.DEAD;
+        return aliveAndTwoOrThreeNeighbors() || deadAndExactlyThreeNeighbors()
+            ? States.ALIVE
+            : States.DEAD;
     }
 
     private getAliveNeighborsOf(game: string[][], line: number, column: number): number {
         let aliveNeighbors = 0;
 
-        if (line > 0 && game[line - 1][column] === States.ALIVE)
-            aliveNeighbors++;
-        if (line < game.length - 1 && game[line + 1][column] === States.ALIVE)
-            aliveNeighbors++;
-        if (column > 0 && game[line][column - 1] === States.ALIVE)
-            aliveNeighbors++;
-        if (column < game[line].length - 1 && game[line][column + 1] === States.ALIVE)
-            aliveNeighbors++;
+        const topCellAlive = () => line > 0 && game[line - 1][column] === States.ALIVE;
+        const bottomCellAlive = () => line < game.length - 1 && game[line + 1][column] === States.ALIVE;
+        const leftCellAlive = () => column > 0 && game[line][column - 1] === States.ALIVE;
+        const rightCellAlive = () => column < game[line].length - 1 && game[line][column + 1] === States.ALIVE;
+
+        if (topCellAlive()) aliveNeighbors++;
+        if (bottomCellAlive()) aliveNeighbors++;
+        if (leftCellAlive()) aliveNeighbors++;
+        if (rightCellAlive()) aliveNeighbors++;
 
         return aliveNeighbors;
     }
