@@ -41,10 +41,10 @@ export class GameOfLife {
         const isAlive = game[line][column] === States.ALIVE;
         const aliveNeighbors = this.getAliveNeighborsOf(game, line, column);
 
-        const aliveAndTwoOrThreeNeighbors = () => isAlive && (aliveNeighbors === 2 || aliveNeighbors === 3);
-        const deadAndExactlyThreeNeighbors = () => !isAlive && aliveNeighbors === 3;
+        const aliveWithTwoOrThreeNeighbors = isAlive && (aliveNeighbors === 2 || aliveNeighbors === 3);
+        const deadWithExactlyThreeNeighbors = !isAlive && aliveNeighbors === 3;
 
-        return aliveAndTwoOrThreeNeighbors() || deadAndExactlyThreeNeighbors()
+        return aliveWithTwoOrThreeNeighbors || deadWithExactlyThreeNeighbors
             ? States.ALIVE
             : States.DEAD;
     }
@@ -52,15 +52,15 @@ export class GameOfLife {
     private getAliveNeighborsOf(game: string[][], line: number, column: number): number {
         let aliveNeighbors = 0;
 
-        const topCellAlive = () => line > 0 && game[line - 1][column] === States.ALIVE;
-        const bottomCellAlive = () => line < game.length - 1 && game[line + 1][column] === States.ALIVE;
-        const leftCellAlive = () => column > 0 && game[line][column - 1] === States.ALIVE;
-        const rightCellAlive = () => column < game[line].length - 1 && game[line][column + 1] === States.ALIVE;
+        const topCellAlive = line > 0 && game[line - 1][column] === States.ALIVE;
+        const bottomCellAlive = line < game.length - 1 && game[line + 1][column] === States.ALIVE;
+        const leftCellAlive = column > 0 && game[line][column - 1] === States.ALIVE;
+        const rightCellAlive = column < game[line].length - 1 && game[line][column + 1] === States.ALIVE;
 
-        if (topCellAlive()) aliveNeighbors++;
-        if (bottomCellAlive()) aliveNeighbors++;
-        if (leftCellAlive()) aliveNeighbors++;
-        if (rightCellAlive()) aliveNeighbors++;
+        if (topCellAlive) aliveNeighbors++;
+        if (bottomCellAlive) aliveNeighbors++;
+        if (leftCellAlive) aliveNeighbors++;
+        if (rightCellAlive) aliveNeighbors++;
 
         return aliveNeighbors;
     }

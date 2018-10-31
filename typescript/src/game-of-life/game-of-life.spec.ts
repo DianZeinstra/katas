@@ -9,7 +9,7 @@ describe('Game of Life should', () => {
 
     const sut: GameOfLife = new GameOfLife();
 
-    it('compute next state on all dead 2x2 grid', () => {
+    it('keep state when every cell is dead', () => {
         const current = [
             [ '.', '.' ],
             [ '.', '.' ]
@@ -23,7 +23,7 @@ describe('Game of Life should', () => {
         sut.nextStepFor(current).should.eql(next);
     });
 
-    it('kill an alive cell with zero alive neighbor', () => {
+    it('kill an alive cell when is has zero alive neighbor', () => {
         const current = [
             [ '*', '.' ],
             [ '.', '.' ]
@@ -37,7 +37,7 @@ describe('Game of Life should', () => {
         sut.nextStepFor(current).should.eql(next);
     });
 
-    it('kill an alive cell with one alive neighbors', () => {
+    it('kill an alive cell when it has one alive neighbor', () => {
         const current = [
             [ '*', '*' ],
             [ '.', '.' ]
@@ -51,7 +51,7 @@ describe('Game of Life should', () => {
         sut.nextStepFor(current).should.eql(next);
     });
 
-    it('kill an alive cell with four alive neighbors', () => {
+    it('kill an alive cell when it has four alive neighbors', () => {
         const current = [
             [ '.', '*', '.' ],
             [ '*', '*', '*' ],
@@ -67,7 +67,7 @@ describe('Game of Life should', () => {
         sut.nextStepFor(current).should.eql(next);
     });
 
-    it('keep an alive cell with two or three alive neighbors', () => {
+    it('keep an alive cell when it has two or three alive neighbors', () => {
         const current = [
             [ '.', '*', '.' ],
             [ '*', '*', '.' ],
