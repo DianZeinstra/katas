@@ -9,7 +9,7 @@ describe('Game of Life should', () => {
 
     const sut: GameOfLife = new GameOfLife();
 
-    it('compute next state on empty 2x2 grid', () => {
+    it('compute next state on all dead 2x2 grid', () => {
         const current = [
             [ '.', '.' ],
             [ '.', '.' ]
