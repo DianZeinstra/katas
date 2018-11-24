@@ -7,9 +7,9 @@ export function chop(searched: number, array: number[]): number {
 
         const middle = Math.floor(array.length / 2);
 
-        if (array[middle] === searched)
+        if (array[ middle ] === searched)
             return actual + middle;
-        else if (array[middle] > searched)
+        else if (array[ middle ] > searched)
             return chopActual(searched, array.slice(0, middle), actual);
         else
             return chopActual(searched, array.slice(middle), actual + middle);
@@ -19,7 +19,7 @@ export function chop(searched: number, array: number[]): number {
         }
 
         function greaterThanRight() {
-            return searched > array[array.length - 1];
+            return searched > array[ array.length - 1 ];
         }
     }
 }
