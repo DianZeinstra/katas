@@ -38,6 +38,7 @@ describe('(Day 2) Karate Chop should', () => {
             chop(0, ODD).should.equal(-1);
         });
 
+        // Red until refactoring to use chopActual
         it('be ok when value is greater than right', () => {
             chop(10, ODD).should.equal(-1);
         });

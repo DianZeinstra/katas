@@ -67,6 +67,7 @@ describe('(Day 1) Karate Chop should', () => {
             chop(8, [1, 3, 5, 7]).should.equal(-1);
         });
 
+        // Infinite loop before adding steps and limit
         it('be -1 when value not in here', () => {
             chop(4, [1, 3, 5, 7]).should.equal(-1);
         });
