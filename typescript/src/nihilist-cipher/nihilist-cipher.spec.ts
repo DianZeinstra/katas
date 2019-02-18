@@ -24,7 +24,5 @@ describe('Nihilist Cipher should', () => {
             const nc = new NihilistCipher(KEYWORD);
             nc.cipher('HELLO WORLD', 'TEST').should.equal('64307273756074787329');
         });
-
-
     });
 });
