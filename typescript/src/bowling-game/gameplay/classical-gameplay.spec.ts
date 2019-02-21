@@ -1,15 +1,20 @@
 import { should } from 'chai';
 
-import { BowlingGame } from './bowling-game';
+import { BowlingGame } from '../bowling-game';
+
+import { ClassicalGameplay } from './classical-gameplay';
+import { GameplayStrategy } from './gameplay-strategy';
 
 should();
 
-describe('Bowling game should', () => {
+describe('ClassicalGameplay should', () => {
 
+    let gameplay: GameplayStrategy;
     let game: BowlingGame;
 
     beforeEach(() => {
-        game = new BowlingGame();
+        gameplay = new ClassicalGameplay();
+        game = new BowlingGame(gameplay);
     });
 
     function rollMany(steps: number, pins: number) {
