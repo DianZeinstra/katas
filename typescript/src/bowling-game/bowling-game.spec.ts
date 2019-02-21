@@ -53,9 +53,7 @@ describe('BowlingGame', () => {
         });
 
         it('roll a spare in three rolls', () => {
-            game.roll(3);
-            game.roll(3);
-            game.roll(4); // spare !
+            rollMartianSpare(); // spare !
             game.roll(4);
             game.score().should.equal(18);
         });
@@ -83,6 +81,12 @@ describe('BowlingGame', () => {
     function rollSpare() {
         game.roll(5);
         game.roll(5);
+    }
+
+    function rollMartianSpare() {
+        game.roll(3);
+        game.roll(3);
+        game.roll(4);
     }
 
     function rollStrike() {

@@ -58,7 +58,8 @@ export class BowlingGame {
     }
 
     private isSpare(currentRoll: number) {
-        return this.rolls[ currentRoll ] + this.rolls[ currentRoll + 1 ] == this.pins;
+        return this.rolls[ currentRoll ]
+            + this.rolls[ currentRoll + 1 ] == this.pins;
     }
 
     roll(pins: number): void {
