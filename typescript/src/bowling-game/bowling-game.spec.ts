@@ -12,7 +12,7 @@ describe('BowlingGame', () => {
     describe('Classical game style should', () => {
 
         beforeEach(() => {
-            game = new BowlingGameFactory().classicalGame();
+            game = new BowlingGameFactory().ClassicalGame();
         });
 
         it('gutter game', () => {
@@ -41,11 +41,38 @@ describe('BowlingGame', () => {
         });
     });
 
-    it('12 frames all ones game', () => {
-        const frames = 12;
-        game = new BowlingGameFactory().martianGame();
-        rollMany(24, 1);
-        game.score().should.equal(24);
+    describe('Martian game style should', () => {
+
+        beforeEach(() => {
+            game = new BowlingGameFactory().MartianGame();
+        });
+
+        it('3 rolls on 12 frames all ones game', () => {
+            rollMany(36, 1);
+            game.score().should.equal(36);
+        });
+
+        it('roll a spare in three rolls', () => {
+            game.roll(3);
+            game.roll(3);
+            game.roll(4); // spare !
+            game.roll(4);
+            game.score().should.equal(18);
+        });
+    });
+
+    describe('Wii game style should', () => {
+        
+        beforeEach(() => {
+            game = new BowlingGameFactory().WiiGame();
+        });
+
+        it('have a 100-pins game with one strike', () => {
+            rollWiiStrike();
+            game.roll(11);
+            game.roll(1);
+            game.score().should.equal(124);
+        });
     });
 
     function rollMany(steps: number, pins: number) {
@@ -60,5 +87,9 @@ describe('BowlingGame', () => {
 
     function rollStrike() {
         game.roll(10);
+    }
+
+    function rollWiiStrike() {
+        game.roll(100);
     }
 });
