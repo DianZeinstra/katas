@@ -1,5 +1,7 @@
 import { should } from 'chai';
-import { BowlingGame, BowlingGameFactory } from './bowling-game';
+
+import { BowlingGame } from './bowling-game';
+import { BowlingGameFactory } from "./bowling-game.factory";
 
 should();
 
@@ -7,10 +9,10 @@ describe('BowlingGame', () => {
 
     let game: BowlingGame;
 
-    describe('ordinary game should', () => {
+    describe('Classical game style should', () => {
 
         beforeEach(() => {
-            game = new BowlingGameFactory().makeOrdinaryGame();
+            game = new BowlingGameFactory().ClassicalGame();
         });
 
         it('gutter game', () => {
@@ -25,34 +27,54 @@ describe('BowlingGame', () => {
 
         it('one spare', () => {
             rollSpare();
-            game.roll(2);
+            game.roll(7);
             rollMany(17, 0);
-            game.score().should.equal(14);
+            game.score().should.equal(24);
         });
 
         it('one strike', () => {
-           rollStrike();
-           game.roll(3);
-           game.roll(3);
-           rollMany(16, 0);
-           game.score().should.equal(22);
+            rollStrike();
+            game.roll(3);
+            game.roll(5);
+            rollMany(17, 0);
+            game.score().should.equal(26);
         });
     });
 
-    describe('martian game should', () => {
+    describe('Martian game style should', () => {
 
         beforeEach(() => {
-            game = new BowlingGameFactory().makeMartianGame();
+            game = new BowlingGameFactory().MartianGame();
         });
 
-        it('martian all ones on 12 frames', () => {
-           rollMany(35, 1);
-           game.score().should.equal(35);
+        it('3 rolls on 12 frames all ones game', () => {
+            rollMany(36, 1);
+            game.score().should.equal(36);
+        });
+
+        it('roll a spare in three rolls', () => {
+            rollMartianSpare(); // spare !
+            game.roll(4);
+            game.score().should.equal(18);
         });
     });
 
-    function rollMany(rolls: number, pins: number) {
-        for (let i = 0; i < rolls; i++)
+    describe('Wii game style should', () => {
+
+        beforeEach(() => {
+            game = new BowlingGameFactory().WiiGame();
+        });
+
+        it('have a 100-pins game with one strike', () => {
+            rollWiiStrike();
+            game.roll(11);
+            game.roll(1);
+            game.score().should.equal(124);
+        });
+    });
+
+    function rollMany(steps: number, pins: number) {
+        for (let i = 0; i < steps; i++)
             game.roll(pins);
     }
 
@@ -61,7 +83,18 @@ describe('BowlingGame', () => {
         game.roll(5);
     }
 
+
+    function rollMartianSpare() {
+        game.roll(3);
+        game.roll(3);
+        game.roll(4);
+    }
+
     function rollStrike() {
         game.roll(10);
+    }
+
+    function rollWiiStrike() {
+        game.roll(100);
     }
 });
