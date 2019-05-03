@@ -5,6 +5,9 @@ export class Wrapper {
             return line;
         }
 
-        return '';
+        const re = new RegExp('[\\s\\S]{1,' + threshold + '}', 'g');
+        const parts = line.match(re) || [];
+
+        return parts.join('\n');
     }
 }
