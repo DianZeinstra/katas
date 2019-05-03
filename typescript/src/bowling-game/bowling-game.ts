@@ -1,3 +1,10 @@
+const Reducers = {
+    sum: (total: number, value: number) => {
+        total += value;
+        return total;
+    }
+};
+
 export class BowlingGameBuilder {
     private frames: number;
     private rollsPerFrame: number;
@@ -58,8 +65,9 @@ export class BowlingGame {
     }
 
     private isSpare(currentRoll: number) {
-        return this.rolls[ currentRoll ]
-            + this.rolls[ currentRoll + 1 ] == this.pins;
+        return this.rolls
+            .slice(currentRoll, currentRoll + this.rollsPerFrame)
+            .reduce(Reducers.sum, 0) === this.pins;
     }
 
     roll(pins: number): void {
@@ -77,21 +85,16 @@ export class BowlingGame {
             }
             else if (this.isSpare(currentRoll)) {
                 score += this.pins + this.nextBallForSpare(currentRoll);
-                currentRoll += 2;
+                currentRoll += this.rollsPerFrame;
             }
             else {
                 score += this.rolls
                     .slice(currentRoll, currentRoll + this.rollsPerFrame)
-                    .reduce(sum, 0);
+                    .reduce(Reducers.sum, 0);
                 currentRoll += this.rollsPerFrame;
             }
         }
 
         return score;
-
-        function sum(total: number, value: number) {
-            total += value;
-            return total;
-        }
     }
 }
