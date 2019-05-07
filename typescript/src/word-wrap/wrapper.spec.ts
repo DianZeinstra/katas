@@ -18,8 +18,8 @@ describe('WordWrap should', () => {
     });
 
     it('return input when threshold is equal to input size', () => {
-        Wrapper.wrap('A', 1).should.equal('A');
-        Wrapper.wrap(Alphabet, 26).should.equal(Alphabet);
+        Wrapper.wrap(Abc, Abc.length).should.equal(Abc);
+        Wrapper.wrap(Alphabet, Alphabet.length).should.equal(Alphabet);
     });
 
     describe('when input contains no space or new line', () => {
