@@ -2,7 +2,7 @@ import { should } from 'chai';
 import { join } from 'path';
 
 import { OCR } from './ocr';
-import { Code } from './code';
+import { Code, CodeStatus } from './code';
 
 should();
 
@@ -18,7 +18,9 @@ describe('OCR should', () => {
     it('parse empty files', () => {
         ocr = OCR.forFile(emptyFilePath);
 
-        const result = ocr.parse();
+        ocr.parse();
+        ocr.checkStatuses();
+        const result = ocr.codes;
 
         result.should.exist;
         result.length.should.equal(0);
@@ -28,13 +30,17 @@ describe('OCR should', () => {
         ocr = OCR.forFile(testFilePath);
 
         const expected: Code[] = [
-            new Code('123456789'),
-            new Code('071717170'),
+            new Code('123456789', CodeStatus.OK),
+            new Code('071717170', CodeStatus.ERR),
+            new Code('?117?7170', CodeStatus.ILL),
         ];
 
-        const result = ocr.parse();
+        ocr.parse();
+        ocr.checkStatuses();
+        const result = ocr.codes;
+
         result.should.exist;
-        result.length.should.equal(2);
+        result.length.should.equal(3);
         result.should.eql(expected);
     });
 });

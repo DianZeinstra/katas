@@ -1,13 +1,15 @@
 import { ASCII_DIGITS } from './ascii-alphabet';
 import { Code } from '../code';
 
+export const NotReadableChar = '?';
+
 const asciiToString = (ascii: string): string => {
     return ASCII_DIGITS.reduce((acc, asciiNumber, index) => {
         if (ascii === asciiNumber) {
             acc = String(index);
         }
         return acc;
-    }, '?');
+    }, NotReadableChar);
 };
 
 export class OCRAsciiParser {
