@@ -1,19 +1,19 @@
 import { readFileSync } from 'fs';
 
-import { FileParser } from './file-parser';
+import { FileReader } from './file-reader';
 
 export type Mapper<T> = (arg: T) => any;
 
-export class OCRFileParser implements FileParser {
+export class OcrFileReader implements FileReader {
     private readonly LinesForOCR = 4;
-    private readonly FilePath: string;
+    private readonly _filePath: string;
 
     constructor(path: string) {
-        this.FilePath = path;
+        this._filePath = path;
     }
 
     foreachLines(mapper: Mapper<string[]>): void {
-        const lines = readFileSync(this.FilePath)
+        const lines = readFileSync(this._filePath)
             .toString()
             .split('\n');
 

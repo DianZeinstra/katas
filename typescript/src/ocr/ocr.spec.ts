@@ -19,10 +19,12 @@ describe('OCR should', () => {
     const withIllFilename = 'with_ill.txt';
     const withIllFilePath = join(__dirname, 'assets', withIllFilename);
 
+    const writePath = join(__dirname, 'output.txt');
+
     let ocr: OCR;
 
     it('parse empty files', () => {
-        ocr = OCR.forFile(emptyFilePath);
+        ocr = OCR.forFile(emptyFilePath, '');
 
         ocr.parse();
         ocr.checkStatuses();
@@ -33,7 +35,7 @@ describe('OCR should', () => {
     });
 
     it('parse OK codes', () => {
-        ocr = OCR.forFile(okFilePath);
+        ocr = OCR.forFile(okFilePath, '');
 
         const expected: Code[] = [ new Code('123456789', CodeStatus.OK) ];
 
@@ -47,7 +49,7 @@ describe('OCR should', () => {
     });
 
     it('parse ERR codes', () => {
-        ocr = OCR.forFile(withErrFilePath);
+        ocr = OCR.forFile(withErrFilePath, '');
 
         const expected: Code[] = [
             new Code('123456789', CodeStatus.OK),
@@ -64,7 +66,7 @@ describe('OCR should', () => {
     });
 
     it('parse ILL codes', () => {
-        ocr = OCR.forFile(withIllFilePath);
+        ocr = OCR.forFile(withIllFilePath, '');
 
         const expected: Code[] = [
             new Code('123456789', CodeStatus.OK),
@@ -79,5 +81,15 @@ describe('OCR should', () => {
         result.should.exist;
         result.length.should.equal(3);
         result.should.eql(expected);
+    });
+
+    it('write a report on demand', () => {
+        ocr = OCR.forFile(withIllFilePath, writePath);
+
+        ocr.parse();
+        ocr.checkStatuses();
+        ocr.writeReport();
+
+        true.should.equal(false);
     });
 });

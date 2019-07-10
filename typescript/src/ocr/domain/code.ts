@@ -20,4 +20,8 @@ export class Code {
     set status(s: CodeStatus) {
         this._status = s;
     }
+
+    toString() {
+        return `${this._value} ${this._status}`;
+    }
 }
