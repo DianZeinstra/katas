@@ -2,16 +2,22 @@ import { should } from 'chai';
 import { join } from 'path';
 
 import { OCR } from './ocr';
-import { Code, CodeStatus } from './code';
+import { Code, CodeStatus } from './domain/code';
 
 should();
 
 describe('OCR should', () => {
-    const emptyFileName = 'empty.txt';
-    const emptyFilePath = join(__dirname, emptyFileName);
+    const emptyFilename = 'empty.txt';
+    const emptyFilePath = join(__dirname, 'assets', emptyFilename);
 
-    const testFileName = 'codes.txt';
-    const testFilePath = join(__dirname, testFileName);
+    const okFilename = 'only_ok.txt';
+    const okFilePath = join(__dirname, 'assets', okFilename);
+
+    const withErrFilename = 'with_err.txt';
+    const withErrFilePath = join(__dirname, 'assets', withErrFilename);
+
+    const withIllFilename = 'with_ill.txt';
+    const withIllFilePath = join(__dirname, 'assets', withIllFilename);
 
     let ocr: OCR;
 
@@ -26,8 +32,39 @@ describe('OCR should', () => {
         result.length.should.equal(0);
     });
 
-    it('parse fetched files', () => {
-        ocr = OCR.forFile(testFilePath);
+    it('parse OK codes', () => {
+        ocr = OCR.forFile(okFilePath);
+
+        const expected: Code[] = [ new Code('123456789', CodeStatus.OK) ];
+
+        ocr.parse();
+        ocr.checkStatuses();
+        const result = ocr.codes;
+
+        result.should.exist;
+        result.length.should.equal(1);
+        result.should.eql(expected);
+    });
+
+    it('parse ERR codes', () => {
+        ocr = OCR.forFile(withErrFilePath);
+
+        const expected: Code[] = [
+            new Code('123456789', CodeStatus.OK),
+            new Code('071717170', CodeStatus.ERR),
+        ];
+
+        ocr.parse();
+        ocr.checkStatuses();
+        const result = ocr.codes;
+
+        result.should.exist;
+        result.length.should.equal(2);
+        result.should.eql(expected);
+    });
+
+    it('parse ILL codes', () => {
+        ocr = OCR.forFile(withIllFilePath);
 
         const expected: Code[] = [
             new Code('123456789', CodeStatus.OK),
