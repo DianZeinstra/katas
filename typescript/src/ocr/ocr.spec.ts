@@ -1,5 +1,6 @@
 import { should } from 'chai';
 import { join } from 'path';
+import { existsSync } from 'fs';
 
 import { OCR } from './ocr';
 import { Code, CodeStatus } from './domain/code';
@@ -90,6 +91,6 @@ describe('OCR should', () => {
         ocr.checkStatuses();
         ocr.writeReport();
 
-        true.should.equal(false);
+        existsSync(writePath).should.equal(true);
     });
 });
