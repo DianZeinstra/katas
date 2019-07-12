@@ -4,8 +4,8 @@ import { Code } from '../code';
 export const NotReadableChar = '?';
 
 const asciiToString = (ascii: string): string => {
-    return ASCII_DIGITS.reduce((acc, asciiNumber, index) => {
-        if (ascii === asciiNumber) {
+    return ASCII_DIGITS.reduce((acc, numberInAscii, index) => {
+        if (ascii === numberInAscii) {
             acc = String(index);
         }
         return acc;

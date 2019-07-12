@@ -1,9 +1,9 @@
 import { writeFileSync } from 'fs';
 
-import { FileWriter } from './file-writer';
+import { Writer } from './writer';
 import { Code } from '../../domain/code';
 
-export class OcrFileWriter implements FileWriter<Code[]> {
+export class OcrWriter implements Writer<Code[]> {
     private readonly _filePath: string;
 
     constructor(path: string) {

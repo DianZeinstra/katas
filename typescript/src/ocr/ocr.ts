@@ -2,24 +2,24 @@ import { Checksum } from './domain/checksum';
 import { Code } from './domain/code';
 import { OCRAsciiParser } from './domain/ascii/ocr-ascii-parser';
 
-import { FileReader } from './file/read/file-reader';
-import { OcrFileReader } from './file/read/ocr-file-reader';
-import { FileWriter } from './file/write/file-writer';
-import { OcrFileWriter } from './file/write/ocr-file-writer';
+import { FileReader } from './io/read/file-reader';
+import { OcrFileReader } from './io/read/ocr-file-reader';
+import { Writer } from './io/write/writer';
+import { OcrWriter } from './io/write/ocr-writer';
 
 export class OCR {
     private readonly _reader: FileReader;
-    private readonly _writer: FileWriter<Code[]>;
+    private readonly _writer: Writer<Code[]>;
     private readonly _codes: Code[] = [];
 
-    private constructor(reader: FileReader, writer: FileWriter<Code[]>) {
+    private constructor(reader: FileReader, writer: Writer<Code[]>) {
         this._reader = reader;
         this._writer = writer;
     }
 
     static forFile(readPath: string, writePath: string) {
         const reader = new OcrFileReader(readPath);
-        const writer = new OcrFileWriter(writePath);
+        const writer = new OcrWriter(writePath);
         return new OCR(reader, writer);
     }
 
