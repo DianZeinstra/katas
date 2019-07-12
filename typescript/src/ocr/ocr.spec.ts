@@ -28,7 +28,7 @@ describe('OCR should', () => {
         ocr = OCR.forFile(emptyFilePath, '');
 
         ocr.parse();
-        ocr.checkStatuses();
+        // ocr.checkStatuses();
         const result = ocr.codes;
 
         result.should.exist;
@@ -41,7 +41,7 @@ describe('OCR should', () => {
         const expected: Code[] = [ new Code('123456789', CodeStatus.OK) ];
 
         ocr.parse();
-        ocr.checkStatuses();
+        // ocr.checkStatuses();
         const result = ocr.codes;
 
         result.should.exist;
@@ -58,7 +58,7 @@ describe('OCR should', () => {
         ];
 
         ocr.parse();
-        ocr.checkStatuses();
+        // ocr.checkStatuses();
         const result = ocr.codes;
 
         result.should.exist;
@@ -76,7 +76,7 @@ describe('OCR should', () => {
         ];
 
         ocr.parse();
-        ocr.checkStatuses();
+        // ocr.checkStatuses();
         const result = ocr.codes;
 
         result.should.exist;
@@ -88,7 +88,7 @@ describe('OCR should', () => {
         ocr = OCR.forFile(withIllFilePath, writePath);
 
         ocr.parse();
-        ocr.checkStatuses();
+        // ocr.checkStatuses();
         ocr.writeReport();
 
         existsSync(writePath).should.equal(true);

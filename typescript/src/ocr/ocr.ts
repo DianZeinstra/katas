@@ -1,4 +1,3 @@
-import { Checksum } from './domain/checksum';
 import { Code } from './domain/code';
 import { OCRAsciiParser } from './domain/ascii/ocr-ascii-parser';
 
@@ -30,12 +29,6 @@ export class OCR {
     parse(): void {
         const mapToCodes = OCRAsciiParser.asciiNumbersToCodes(this._codes);
         this._reader.foreachLines(mapToCodes);
-    }
-
-    checkStatuses(): void {
-        this.codes.forEach(code => {
-            code.status = Checksum.valueOf(code.value);
-        });
     }
 
     writeReport(): void {
