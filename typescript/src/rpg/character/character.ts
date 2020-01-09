@@ -1,21 +1,37 @@
+class HealthTooHighException extends Error {
+  constructor(m: string) {
+    super(m);
+  }
+}
+
 export class CharacterBuilder implements CharacterBuilder {
   private health = Character.MAX_HEALTH;
   private name: string;
 
-  getHealth(): number {
-    return this.health;
+  withHealth(health: number) {
+    if (health > Character.MAX_HEALTH) {
+      throw new HealthTooHighException(`Health too high (max is ${Character.MAX_HEALTH})`);
+    }
+
+    this.health = health;
+    return this;
   }
 
   withName(name: string) {
     this.name = name;
     return this;
   }
-  getName(): string {
-    return this.name;
-  }
 
   build(): Character {
     return new Character(this);
+  }
+
+  getHealth(): number {
+    return this.health;
+  }
+
+  getName(): string {
+    return this.name;
   }
 }
 

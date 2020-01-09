@@ -12,6 +12,15 @@ describe('Character should', () => {
     other = new CharacterBuilder().withName('').build();
   });
 
+  it('not create with more than 100 life', () => {
+    try {
+      new CharacterBuilder().withHealth(101).withName('').build()
+    }
+    catch (e) {
+      e.should.exist;
+    }
+  });
+
   describe('when created', () => {
     it('be alive', () => {
       character.alive().should.be.true;
