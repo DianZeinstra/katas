@@ -1,20 +1,8 @@
-export class TooMuchLifeError extends Error {
-  constructor(m?: string) {
-    super(m || `Life cannot go above ${Character.MAX_HEALTH}`);
-  }
-}
-
-export class CannotAutoAttackError extends Error {
-  constructor(m?: string) {
-    super(m || `Life cannot go above ${Character.MAX_HEALTH}`);
-  }
-}
-
-export class CannotHealDeadCharacterError extends Error {
-  constructor(m?: string) {
-    super(m || `Life cannot go above ${Character.MAX_HEALTH}`);
-  }
-}
+import {
+  TooMuchLifeError,
+  CannotAutoAttackError,
+  CannotHealDeadCharacterError
+} from './errors';
 
 export class Character {
   static readonly MAX_HEALTH = 100;

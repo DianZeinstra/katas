@@ -1,11 +1,11 @@
 import { should } from 'chai';
 
+import { Character } from './character';
 import {
-  Character,
+  TooMuchLifeError,
   CannotAutoAttackError,
-  CannotHealDeadCharacterError,
-  TooMuchLifeError
-} from './character';
+  CannotHealDeadCharacterError
+} from './errors';
 
 should();
 
