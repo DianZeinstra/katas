@@ -35,7 +35,7 @@ export class Character {
   }
 
   attack(enemy: Character): void {
-    if (enemy === this) {
+    if (this === enemy) {
       throw new CannotAutoAttackError();
     }
     if (enemy.alive) {

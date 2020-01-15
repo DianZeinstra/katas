@@ -1,5 +1,6 @@
 import { Character } from './character';
 import { TooMuchLifeError } from './errors';
+import { randomInRange } from './utils';
 
 export interface Weapon {
   damages: () => number;
@@ -7,7 +8,7 @@ export interface Weapon {
 
 class DummyWeapon implements Weapon {
   damages() {
-    return Math.floor(Math.random() * 9) + 1;
+    return randomInRange(1, 10);
   }
 }
 
@@ -36,7 +37,7 @@ export class Warrior extends Character {
   }
 
   heal(ally: Character): void {
-    if (ally === this) {
+    if (this === ally) {
       ally.restore(1);
     }
   }

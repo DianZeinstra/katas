@@ -17,3 +17,9 @@ export class CannotHealDeadCharacterError extends Error {
     super('Nope you can\'t heal a dead character...');
   }
 }
+
+export class MagesCannotAttackError extends Error {
+  constructor(m?: string) {
+    super('Mages cannot attack bruh...');
+  }
+}
