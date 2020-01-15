@@ -34,7 +34,7 @@ export class Character {
     return this._health > 0;
   }
 
-  private constructor(health: number) {
+  protected constructor(health: number) {
     this._name = '';
     this._health = health;
   }
