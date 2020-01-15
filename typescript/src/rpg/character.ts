@@ -51,10 +51,10 @@ export class Character {
   }
 
   damage(quantity: number): void {
-    this._health -= quantity;
+    this._health = Math.max(0, this._health - quantity);
   }
 
   restore(quantity: number): void {
-    this._health += quantity;
+    this._health = Math.min(this._health + quantity, Character.MAX_HEALTH);
   }
 }

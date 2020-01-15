@@ -19,6 +19,12 @@ describe('Warrior should', () => {
     enemy.health.should.equal(95);
   });
 
+  it('deal only enough damage to kill but not more', () => {
+    const enemy = Character.new(3);
+    warrior.attack(enemy);
+    enemy.health.should.equal(0);
+  });
+
   it('be able to attack himself', () => {
     warrior.attack(warrior);
     warrior.health.should.equal(45);
