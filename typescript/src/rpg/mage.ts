@@ -1,4 +1,5 @@
 import { Character } from './character';
+import { Job } from './job';
 import {
   CannotHealDeadCharacterError,
   TooMuchLifeError,

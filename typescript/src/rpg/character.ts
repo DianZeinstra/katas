@@ -1,14 +1,16 @@
-import {
-  TooMuchLifeError,
-  CannotAutoAttackError,
-  CannotHealDeadCharacterError
-} from './errors';
+import { Job, NoJob } from './job';
+import { TooMuchLifeError } from './errors';
+
+// const Jobs: Job[] = {
+//   Mage, Warrior
+// }
 
 export class Character {
   static readonly MAX_HEALTH = 100;
 
   private _name: string;
   private _health: number;
+  private _job: Job;
 
   get name(): string {
     return this._name;
@@ -22,9 +24,14 @@ export class Character {
     return this._health > 0;
   }
 
-  protected constructor(health: number) {
+  protected constructor(health: number, job?: Job) {
     this._name = '';
     this._health = health;
+    this._job = job || new NoJob();
+  }
+
+  static withJob(job: Job): Character {
+    return new Character(Character.MAX_HEALTH);
   }
 
   static new(health = Character.MAX_HEALTH): Character {
@@ -35,19 +42,11 @@ export class Character {
   }
 
   attack(enemy: Character): void {
-    if (this === enemy) {
-      throw new CannotAutoAttackError();
-    }
-    if (enemy.alive) {
-      enemy.damage(1);
-    }
+    this._job.attack(this, enemy);
   }
 
   heal(ally: Character): void {
-    if (!ally.alive) {
-      throw new CannotHealDeadCharacterError();
-    }
-    ally.restore(1);
+    this._job.heal(ally);
   }
 
   damage(quantity: number): void {
