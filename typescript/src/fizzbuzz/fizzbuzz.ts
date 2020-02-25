@@ -7,6 +7,7 @@ import {
 } from './errors';
 
 export class FizzBuzz {
+
   private DIVISORS = {
     Fizz: 3, Buzz: 5
   };
@@ -51,7 +52,7 @@ export class FizzBuzz {
   }
 
   private arrayOnRange(range: number): number[] {
-    return [...Array(range).keys()].map(t => t+1);
+    return [...Array(range).keys()].map(v => v+1);
   }
 
   private isDivisibleByFizzValue(value: number) {
