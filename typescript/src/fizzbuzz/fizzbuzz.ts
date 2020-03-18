@@ -37,7 +37,7 @@ export class FizzBuzz {
   }
 
   private of(value: number): string {
-    if (this.isDivibleByBothFizzAndBuzzValues(value)) {
+    if (this.isDivisibleByBothFizzAndBuzzValues(value)) {
       return 'FizzBuzz';
     }
     else if (this.isDivisibleByFizzValue(value)) {
@@ -63,9 +63,15 @@ export class FizzBuzz {
     return value % this.DIVISORS.Buzz === 0;
   }
 
-  private isDivibleByBothFizzAndBuzzValues(value: number) {
+  private isDivisibleByBothFizzAndBuzzValues(value: number) {
     return this.isDivisibleByFizzValue(value)
         && this.isDivisibleByBuzzValue(value);
+  }
+
+  private handleRangeErrors(threshold: number) {
+    if (threshold < 1) {
+      throw new NegativeRangeError();
+    }
   }
 
   private handleDivisorErrors(first: number, second: number) {
@@ -80,12 +86,6 @@ export class FizzBuzz {
     }
     if (this.aDivisorIsNotPrimeUpTo100(first, second)) {
       throw new OnlyPrimeDivisorError();
-    }
-  }
-
-  private handleRangeErrors(threshold: number) {
-    if (threshold < 1) {
-      throw new NegativeRangeError();
     }
   }
 
