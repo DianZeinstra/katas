@@ -1,10 +1,6 @@
 import { Job, NoJob } from './job';
 import { TooMuchLifeError } from './errors';
 
-// const Jobs: Job[] = {
-//   Mage, Warrior
-// }
-
 export class Character {
   static readonly MAX_HEALTH = 100;
 

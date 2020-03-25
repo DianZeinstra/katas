@@ -67,6 +67,12 @@ describe('Character should', () => {
       ally.health.should.equal(51);
     });
 
+    it('returns 1 point to himself', () => {
+      const ally = Character.new(50);
+      ally.heal(ally);
+      ally.health.should.equal(51);
+    });
+
     it('doesn\'t work for a dead character', () => {
       (function () {
         character.heal(Character.new(0))
